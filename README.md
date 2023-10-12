@@ -1,6 +1,8 @@
 # DevOps Challenge
 ### Atlantbh DevOps Challenge
 
+I started with terminal: code .git/hooks/commit-msg.sample, and removed .sample for hook to work, and chmod +x .git/hooks/commit-msg to make it executable.
+
 As part of this DevOps challenge, I've implemented a commit-msg Git hook to enforce the following commit message standards:
 
 - Commit messages must follow the format: type:message.
