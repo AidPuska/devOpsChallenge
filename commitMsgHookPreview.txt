@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+commit_types="feature (new feature)|fix (bug fix)|refactor (refactoring code)|wip (work in progress, commits to be pushed later)"
+msg=$(cat "$1")
+
+first_element=$(echo "$msg" | cut -d':' -f1)
+second_element=$(echo "$msg" | cut -d':' -f2)
+
+count=${#msg}
+#i have set limit of 50 chars max and 10 chars min on second element
+second_element_count=${#second_element}
+
+IFS='|' read -ra ADDR <<< "$commit_types"
+
+for i in "${ADDR[@]}"; do
+    if [ $second_element_count -lt 50 -a "$i" = "$first_element" ]; then
+        #check if there is user message after type:
+        if [[ $second_element_count -lt 10 || "$first_element" == "$second_element" ]]; then
+            echo -e "\e[31mFollow rules type:message and set message minimum to 10 chars\e[0m"
+            exit 1
+        else
+            echo -e "\e[32mYour commit message meets Conventional Commit standards...\e[0m"
+            echo -e "\e[35mYour commit: $msg\e[0m"
+            exit 0
+        fi
+    fi
+done
+
+echo -e "\e[31mYour commit message does not meet the Conventional Commit standard\e[0m"
+echo "An example of a valid message is: "
+echo "  feature (new feature):add the 'remember me' button"
+echo "More details at: https://www.atlantbh.com/git-hooks/"
+echo "***********************************************************************"                                                                                                                                                        
+echo "Here are the  list of message type : ${commit_types}"                                                                                                                                                                           
+echo "  <type>:<description>"
+echo "  and to have a maximum of 50 characters. "
+echo "***********************************************************************"
+
+exit 1
