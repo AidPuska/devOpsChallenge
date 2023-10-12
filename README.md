@@ -1,9 +1,11 @@
 # DevOps Challenge
 ### Atlantbh DevOps Challenge
 
+I started with terminal: code .git/hooks/commit-msg.sample, and removed .sample for hook to work, and chmod +x .git/hooks/commit-msg to make it executable.
+
 As part of this DevOps challenge, I've implemented a commit-msg Git hook to enforce the following commit message standards:
 
-- Commit messages must follow the format: <type>:<message>.
+- Commit messages must follow the format: type:message.
 - The <type> must match one of the predefined types: feature (new feature), fix (bug fix), refactor (refactoring code), or wip (work in progress, commits to be pushed later).
 - The <message> should have a minimum of 10 characters and a maximum of 50 characters.
   
